@@ -3,135 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | គ្រប់គ្រងគម្រោង</title>
-    <!-- Fonts, Icons & SweetAlert2 -->
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>ប្រវត្តិរូបសង្ខេប | NPIC វិស្វករ</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        /* កំណត់ពណ៌ និងអថេរគោល (CSS Variables) */
         :root {
-            --primary: #2563eb; --danger: #ef4444; 
-            --bg-color: #f1f5f9; --card-bg: #ffffff;
-            --text-main: #1e293b; --border: #e2e8f0;
+            --primary: #0ea5e9; --primary-dark: #0284c7;
+            --bg-dark: #0f172a; --bg-light: #f8fafc; --card-bg: #ffffff;
+            --text-dark: #1e293b; --text-muted: #64748b;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        * { box-sizing: border-box; font-family: 'Kantumruy Pro', sans-serif; }
-        body { margin: 0; background-color: var(--bg-color); color: var(--text-main); }
+
+        /* រចនាប័ទ្មទូទៅ */
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Kantumruy Pro', sans-serif; background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        a { text-decoration: none; }
+
+        /* របារម៉ឺនុយ (Glassmorphism Navbar) */
+        .navbar {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; box-sizing: border-box;
+        }
+        .logo { color: white; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--primary); }
+        .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: #cbd5e1; font-weight: 500; position: relative; padding-bottom: 5px; transition: var(--transition); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--primary); transition: var(--transition); }
+        .nav-links a:hover { color: white; }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ផ្នែកក្បាល (Animated Hero Section) */
+        header { 
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #0284c7, #0f172a); background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite; color: white; 
+            padding: 160px 20px 100px; text-align: center; 
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        header h1 { margin: 0; font-size: 3rem; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        header h1 span { color: var(--primary); }
+        header p { margin: 20px auto 0; font-size: 1.1rem; color: #cbd5e1; max-width: 700px; line-height: 1.6; }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ផ្នែកអំពីខ្ញុំ (About Card) */
+        .about-section {
+            max-width: 1000px; margin: -50px auto 50px; padding: 40px; box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid white;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; position: relative; z-index: 10;
+        }
+        .about-title { font-size: 1.5rem; color: var(--bg-dark); margin: 0 0 15px 0; }
+        .skills-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+        .skills-list li { background: var(--bg-light); color: var(--bg-dark); padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: 1px solid #e2e8f0; transition: var(--transition); cursor: default; }
+        .skills-list li:hover { background: var(--primary); color: white; transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 5px 15px rgba(14,165,233,0.2); }
+
+        /* ផ្នែកគម្រោង (Projects) */
+        .container { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 2rem; color: var(--bg-dark); margin: 0; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
         
-        nav { background: #0f172a; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
-        nav h1 { margin: 0; font-size: 1.2rem; }
-        .btn-view { background: rgba(255,255,255,0.1); color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; }
-        .btn-view:hover { background: rgba(255,255,255,0.2); }
-
-        .container { max-width: 1400px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 350px 1fr; gap: 30px; align-items: start; }
+        .project-card { 
+            background: var(--card-bg); border-radius: 16px; padding: 30px; 
+            display: flex; flex-direction: column; border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition); position: relative; overflow: hidden;
+        }
+        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+        .project-card:hover::before { transform: scaleX(1); }
+        .project-card h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: var(--bg-dark); }
+        .tags { font-size: 0.8rem; color: var(--primary); background: #f0f9ff; padding: 6px 12px; border-radius: 20px; display: inline-block; margin-bottom: 15px; font-weight: 600; }
+        .project-card p { flex-grow: 1; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
         
-        .form-card { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border); position: sticky; top: 20px; }
-        .form-card h2 { margin-top: 0; font-size: 1.2rem; color: var(--primary); margin-bottom: 20px; }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; }
-        .form-group input, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; outline: none; transition: 0.3s; }
-        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
-        .form-group textarea { height: 90px; resize: vertical; }
-        .btn-submit { background: var(--primary); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .btn-submit:hover { background: #1d4ed8; }
+        .btn-download { 
+            background-color: var(--bg-dark); color: white; padding: 12px; border-radius: 10px; 
+            text-align: center; font-weight: 600; transition: var(--transition); display: flex; justify-content: center; align-items: center; gap: 8px; 
+        }
+        .btn-download:hover { background-color: var(--primary); box-shadow: 0 5px 15px rgba(14,165,233,0.3); transform: translateY(-2px); }
 
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-        .project-card { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; }
-        .btn-delete { position: absolute; top: 15px; right: 15px; background: #fee2e2; color: var(--danger); width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
-        .btn-delete:hover { background: var(--danger); color: white; }
-        .project-card h3 { margin: 0 0 10px 0; font-size: 1.1rem; padding-right: 30px; }
-        .tags { font-size: 0.8rem; color: var(--primary); background: #eff6ff; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px; font-weight: 600; }
-        .project-card p { font-size: 0.9rem; color: #475569; flex-grow: 1; }
+        /* ផ្នែកទំនាក់ទំនង (Footer) */
+        footer { background: var(--bg-dark); color: white; text-align: center; padding: 60px 20px 30px; margin-top: 50px; }
+        .social-icons { margin: 25px 0; display: flex; justify-content: center; gap: 15px; }
+        .social-icons a { 
+            color: white; background: rgba(255,255,255,0.1); width: 45px; height: 45px; 
+            display: flex; justify-content: center; align-items: center; border-radius: 50%; 
+            font-size: 1.2rem; transition: var(--transition); 
+        }
+        .social-icons a:hover { background: var(--primary); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(14,165,233,0.4); }
 
-        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .form-card { position: static; } }
+        /* Responsive សម្រាប់ទូរស័ព្ទ */
+        @media (max-width: 768px) {
+            .about-section { grid-template-columns: 1fr; margin: -30px 20px 40px; padding: 25px; }
+            .nav-links { display: none; }
+            header h1 { font-size: 2rem; }
+        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <h1><i class="fas fa-shield-alt"></i> Admin Dashboard</h1>
-        <a href="index.html" target="_blank" class="btn-view"><i class="fas fa-external-link-alt"></i> មើលទំព័រវេបសាយ</a>
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-layer-group"></i> NPIC Engineer</div>
+        <ul class="nav-links">
+            <li><a href="#home">ទំព័រដើម</a></li>
+            <li><a href="#about">ប្រវត្តិរូប</a></li>
+            <li><a href="#projects">ឯកសារគម្រោង</a></li>
+            <li><a href="#contact">ទំនាក់ទំនង</a></li>
+        </ul>
     </nav>
 
-    <div class="container">
-        <div class="form-card">
-            <h2><i class="fas fa-plus-circle"></i> បន្ថែមគម្រោង</h2>
-            <form id="projectForm">
-                <div class="form-group">
-                    <label>ឈ្មោះគម្រោង</label>
-                    <input type="text" id="pName" required>
-                </div>
-                <div class="form-group">
-                    <label>បច្ចេកវិទ្យា (Tags)</label>
-                    <input type="text" id="pTags" placeholder="ឧ. PLC, ESP32" required>
-                </div>
-                <div class="form-group">
-                    <label>ការពិពណ៌នា</label>
-                    <textarea id="pDesc" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label>តំណរទាញយកឯកសារ</label>
-                    <input type="url" id="pLink" required>
-                </div>
-                <button type="submit" class="btn-submit"><i class="fas fa-save"></i> រក្សាទុក</button>
-            </form>
-        </div>
+    <header id="home">
+        <h1 class="reveal">Engineering Document <span>Repository</span></h1>
+        <p class="reveal">ប្រមូលផ្តុំរាល់ឯកសារពាក់ព័ន្ធនឹងគម្រោងស្រាវជ្រាវ (Capstone), ប្រព័ន្ធគ្រប់គ្រងស្វ័យប្រវត្តិកម្ម និងការរចនាប្លង់សៀគ្វីអេឡិចត្រូនិក។</p>
+    </header>
 
-        <div class="projects-grid" id="projectsContainer"></div>
+    <section class="about-section reveal" id="about">
+        <div>
+            <h2 class="about-title">គោលដៅ និងទស្សនៈវិស័យ</h2>
+            <p style="color: var(--text-muted); line-height: 1.8;">ខ្ញុំជានិស្សិតឆ្នាំទី៤ នៃវិទ្យាស្ថានជាតិពហុបច្ចេកទេសកម្ពុជា (NPIC)។ ខ្ញុំមានចំណង់ចំណូលចិត្តខ្លាំងក្នុងការអភិវឌ្ឍន៍ប្រព័ន្ធស្វ័យប្រវត្តិកម្ម (Automation) រួមបញ្ចូលជាមួយបច្ចេកវិទ្យា IoT និងការរចនា Hardware ដើម្បីបង្កើតជាដំណោះស្រាយថ្មីៗក្នុងវិស័យឧស្សាហកម្ម។</p>
+        </div>
+        <div>
+            <h2 class="about-title" style="font-size: 1.1rem;">ជំនាញ និងបច្ចេកវិទ្យា៖</h2>
+            <ul class="skills-list">
+                <li><i class="fas fa-robot"></i> Siemens PLC (TIA Portal)</li>
+                <li><i class="fas fa-microchip"></i> STM32 & ESP32</li>
+                <li><i class="fas fa-network-wired"></i> MQTT & Node-RED</li>
+                <li><i class="fas fa-bolt"></i> KiCad (PCB Layout)</li>
+                <li><i class="fas fa-code"></i> C/C++ & VHDL</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="container" id="projects">
+        <div class="section-header reveal">
+            <h2>ឯកសារគម្រោងអភិវឌ្ឍន៍</h2>
+            <p style="color: var(--text-muted);">អ្នកអាចចូលមើល និងទាញយកកូដ ឬ Schematic នៃគម្រោងនីមួយៗ</p>
+        </div>
+        
+        <!-- កន្លែងដាក់កាតគម្រោង HTML ផ្ទាល់ -->
+        <div class="projects-grid">
+            
+            <!-- គម្រោងទី១ -->
+            <div class="project-card reveal" style="transition-delay: 0s;">
+                <h3>ប្រព័ន្ធ Smart ASRS</h3>
+                <div class="tags"><i class="fas fa-tag"></i> Siemens PLC | SCARA Robot | ESP32</div>
+                <p>គម្រោង Capstone ដែលរួមបញ្ចូលប្រព័ន្ធស្តុកទំនិញស្វ័យប្រវត្តិ បញ្ជាដោយ PLC និងភ្ជាប់ទិន្នន័យទៅកាន់ផ្ទាំងគ្រប់គ្រង IoT តាមរយៈ MQTT។</p>
+                <!-- សូមដូរ Link ខាងក្រោមទៅជា Link ឯកសារអ្នកពិតប្រាកដ -->
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកឯកសារ</a>
+            </div>
+
+            <!-- គម្រោងទី២ -->
+            <div class="project-card reveal" style="transition-delay: 0.1s;">
+                <h3>AC Smart Meter</h3>
+                <div class="tags"><i class="fas fa-tag"></i> ESP32 | ZMPT101B | ACS712</div>
+                <p>ឧបករណ៍វាស់វ៉ុល និងចរន្តអគ្គិសនី AC រួចគណនាថាមពលប្រើប្រាស់ដោយគណនា RMS បង្ហាញនៅលើអេក្រង់ LCD។</p>
+                <!-- សូមដូរ Link ខាងក្រោមទៅជា Link ឯកសារអ្នកពិតប្រាកដ -->
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកកូដ C++</a>
+            </div>
+
+            <!-- គម្រោងទី៣ -->
+            <div class="project-card reveal" style="transition-delay: 0.2s;">
+                <h3>Buck Converter 100W</h3>
+                <div class="tags"><i class="fas fa-tag"></i> STM32 | IR2110 | KiCad</div>
+                <p>ការរចនាប្រព័ន្ធបំលែងវ៉ុល DC ពី 24V ទៅ 12V ជាមួយចរន្ត 8.33A។ ឯកសាររួមមានប្លង់ Schematic និងការគណនា។</p>
+                <!-- សូមដូរ Link ខាងក្រោមទៅជា Link ឯកសារអ្នកពិតប្រាកដ -->
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកប្លង់សៀគ្វី</a>
+            </div>
+            
+            <!-- គម្រោងទី៤ -->
+            <div class="project-card reveal" style="transition-delay: 0.3s;">
+                <h3>ប្រព័ន្ធស្កេនវត្តមានដោយក្រាមដៃ</h3>
+                <div class="tags"><i class="fas fa-tag"></i> AS608 | NFC | ESP32</div>
+                <p>ប្រព័ន្ធកត់ត្រាវត្តមានសិស្សដោយស្វ័យប្រវត្តិ ប្រើប្រាស់សេនស័រក្រាមដៃគួបផ្សំជាមួយការប្រើកាត NFC និងភ្ជាប់ជាមួយអេក្រង់ OLED។</p>
+                <!-- សូមដូរ Link ខាងក្រោមទៅជា Link ឯកសារអ្នកពិតប្រាកដ -->
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកឯកសារ</a>
+            </div>
+
+        </div>
     </div>
+    
+    <footer id="contact">
+        <h2 class="reveal">ភ្ជាប់ទំនាក់ទំនងជាមួយខ្ញុំ</h2>
+        <p class="reveal" style="color: #cbd5e1;">មានសំណួរ ឬចង់ពិភាក្សាពីគម្រោងវិស្វកម្ម? អាចទាក់ទងមកខ្ញុំបាន៖</p>
+        
+        <div class="social-icons reveal">
+            <!-- ភ្ជាប់ទៅកាន់ Email -->
+            <a href="mailto:beavchhunly65@gmail.com" title="ផ្ញើអ៊ីមែល"><i class="fas fa-envelope"></i></a>
+            <!-- ភ្ជាប់ទៅកាន់ GitHub -->
+            <a href="https://github.com/Dim2308" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <!-- ភ្ជាប់ទៅកាន់ Telegram -->
+            <a href="https://t.me/AhDim_2" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        </div>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 30px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ Dim</p>
+    </footer>
 
     <script>
-        function getProjects() { return JSON.parse(localStorage.getItem('myProjects')) || []; }
-
-        function renderProjects() {
-            const container = document.getElementById('projectsContainer');
-            const projects = getProjects();
-            container.innerHTML = '';
-            projects.reverse().forEach(project => {
-                container.innerHTML += `
-                    <div class="project-card">
-                        <button class="btn-delete" onclick="deleteProject(${project.id})"><i class="fas fa-trash"></i></button>
-                        <h3>${project.name}</h3>
-                        <div class="tags"><i class="fas fa-tag"></i> ${project.tags}</div>
-                        <p>${project.desc}</p>
-                    </div>
-                `;
-            });
-        }
-
-        document.getElementById('projectForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const newProject = {
-                id: Date.now(),
-                name: document.getElementById('pName').value,
-                tags: document.getElementById('pTags').value,
-                desc: document.getElementById('pDesc').value,
-                link: document.getElementById('pLink').value
-            };
-            const projects = getProjects();
-            projects.push(newProject);
-            localStorage.setItem('myProjects', JSON.stringify(projects));
-            this.reset();
-            renderProjects();
+        // កូដ JavaScript សម្រាប់តែធ្វើ Animation អូសចុះក្រោមប៉ុណ្ណោះ លែងប្រើ LocalStorage ទៀតហើយ
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { 
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active'); 
+                    }
+                });
+            }, { threshold: 0.1 });
             
-            Swal.fire({ title: 'ជោគជ័យ!', text: 'គម្រោងត្រូវបានរក្សាទុក', icon: 'success', timer: 1500, showConfirmButton: false });
-        });
-
-        function deleteProject(id) {
-            Swal.fire({
-                title: 'លុបទិន្នន័យ?', text: "អ្នកមិនអាចយកវាត្រឡប់មកវិញបានទេ!", icon: 'warning',
-                showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#64748b',
-                confirmButtonText: 'លុប', cancelButtonText: 'បោះបង់'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let projects = getProjects().filter(p => p.id !== id);
-                    localStorage.setItem('myProjects', JSON.stringify(projects));
-                    renderProjects();
-                    Swal.fire({ title: 'បានលុប!', icon: 'success', timer: 1000, showConfirmButton: false });
-                }
-            });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
 
-        renderProjects();
+        // ដំណើរការ Animation ពេលបើកវេបសាយភ្លាម
+        document.addEventListener('DOMContentLoaded', () => {
+            initScrollAnimations();
+        });
     </script>
 </body>
 </html>
