@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dim - Engineering Portfolio | NPIC</title>
+    <title>Beav Chhunly (Dim) - Engineering Portfolio</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* កំណត់ពណ៌ និងអថេរគោល (CSS Variables) */
+        /* កំណត់ពណ៌ និងអថេរគោល */
         :root {
             --primary: #0ea5e9; --primary-dark: #0284c7;
             --bg-dark: #0f172a; --bg-light: #f8fafc; --card-bg: #ffffff;
             --text-dark: #1e293b; --text-muted: #64748b;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* រចនាប័ទ្មទូទៅ */
         html { scroll-behavior: smooth; }
         body { margin: 0; font-family: 'Kantumruy Pro', sans-serif; background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
         a { text-decoration: none; }
@@ -24,7 +23,7 @@
         /* របារម៉ឺនុយ (Glassmorphism Navbar) */
         .navbar {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex; justify-content: space-between; align-items: center;
             padding: 15px 5%; box-sizing: border-box;
@@ -37,16 +36,45 @@
         .nav-links a:hover { color: white; }
         .nav-links a:hover::after { width: 100%; }
 
-        /* ផ្នែកក្បាល (Animated Hero Section) */
+        /* ផ្នែកក្បាល (Hero Section) */
         header { 
             background: linear-gradient(-45deg, #0f172a, #1e293b, #0284c7, #0f172a); background-size: 400% 400%;
             animation: gradientBG 15s ease infinite; color: white; 
             padding: 160px 20px 100px; text-align: center; 
+            position: relative; overflow: hidden;
         }
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        header h1 { margin: 0; font-size: 3rem; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-        header h1 span { color: var(--primary); }
-        header p { margin: 20px auto 0; font-size: 1.1rem; color: #cbd5e1; max-width: 700px; line-height: 1.6; }
+        
+        /* រូបថត Profile មានចលនាអណ្តែត (Floating Animation) */
+        .profile-container { position: relative; display: inline-block; margin-bottom: 25px; }
+        .profile-pic {
+            width: 180px; height: 180px; border-radius: 50%; object-fit: cover;
+            border: 4px solid white; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.5);
+            position: relative; z-index: 2; animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(14, 165, 233, 0.5); }
+            50% { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(14, 165, 233, 0.7); }
+            100% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(14, 165, 233, 0.5); }
+        }
+        .profile-glow {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 190px; height: 190px; background: var(--primary); border-radius: 50%;
+            filter: blur(25px); opacity: 0.6; z-index: 1; animation: pulse 3s ease-in-out infinite;
+        }
+        @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } 100% { transform: translate(-50%, -50%) scale(1); } }
+
+        /* អក្សរវាយដោយស្វ័យប្រវត្តិ (Typing Effect) */
+        .typing-container {
+            font-size: 2.2rem; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            min-height: 50px; margin: 10px 0; display: flex; justify-content: center; align-items: center;
+        }
+        .typing-text { color: white; }
+        .typing-text span { color: var(--primary); }
+        .cursor { display: inline-block; width: 4px; height: 2.2rem; background-color: var(--primary); margin-left: 5px; animation: blink 1s infinite; vertical-align: middle; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        header p { margin: 20px auto 0; font-size: 1.1rem; color: #cbd5e1; max-width: 700px; line-height: 1.8; }
 
         /* Animation Scroll */
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
@@ -61,14 +89,14 @@
         }
         .about-title { font-size: 1.5rem; color: var(--bg-dark); margin: 0 0 15px 0; }
         .skills-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-        .skills-list li { background: var(--bg-light); color: var(--bg-dark); padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: 1px solid #e2e8f0; transition: var(--transition); cursor: default; }
+        .skills-list li { background: var(--bg-light); color: var(--bg-dark); padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: 1px solid #e2e8f0; transition: var(--transition); }
         .skills-list li:hover { background: var(--primary); color: white; transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 5px 15px rgba(14,165,233,0.2); }
 
-        /* ផ្នែកគម្រោង (Projects) */
+        /* ផ្នែកគម្រោង (Projects) និងវិញ្ញាបនបត្រ */
         .container { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
         .section-header { text-align: center; margin-bottom: 40px; }
         .section-header h2 { font-size: 2rem; color: var(--bg-dark); margin: 0; }
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
         
         .project-card { 
             background: var(--card-bg); border-radius: 16px; padding: 30px; 
@@ -76,8 +104,21 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition); position: relative; overflow: hidden;
         }
         .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
-        .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: #cbd5e1; }
         .project-card:hover::before { transform: scaleX(1); }
+        
+        /* វិចិត្រសាលរូបភាពវិញ្ញាបនបត្រ (Image Gallery Hover Zoom) */
+        .cert-img-wrapper { 
+            width: 100%; height: 240px; overflow: hidden; border-radius: 10px; 
+            margin-bottom: 20px; border: 1px solid #e2e8f0; background-color: #f8fafc;
+            position: relative;
+        }
+        .cert-img { 
+            width: 100%; height: 100%; object-fit: contain; padding: 10px; box-sizing: border-box;
+            transition: transform 0.5s ease;
+        }
+        .project-card:hover .cert-img { transform: scale(1.08); }
+
         .project-card h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: var(--bg-dark); }
         .tags { font-size: 0.8rem; color: var(--primary); background: #f0f9ff; padding: 6px 12px; border-radius: 20px; display: inline-block; margin-bottom: 15px; font-weight: 600; }
         .project-card p { flex-grow: 1; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
@@ -102,7 +143,8 @@
         @media (max-width: 768px) {
             .about-section { grid-template-columns: 1fr; margin: -30px 20px 40px; padding: 25px; }
             .nav-links { display: none; }
-            header h1 { font-size: 2rem; }
+            .typing-container { font-size: 1.5rem; }
+            .cursor { height: 1.5rem; }
         }
     </style>
 </head>
@@ -113,20 +155,30 @@
         <ul class="nav-links">
             <li><a href="#home">ទំព័រដើម</a></li>
             <li><a href="#about">ប្រវត្តិរូប</a></li>
-            <li><a href="#projects">ឯកសារគម្រោង</a></li>
+            <li><a href="#projects">គម្រោង</a></li>
+            <li><a href="#certificates">វិញ្ញាបនបត្រ</a></li>
             <li><a href="#contact">ទំនាក់ទំនង</a></li>
         </ul>
     </nav>
 
+    <!-- ផ្នែកខាងលើ៖ Profile Animation និង Typing Text -->
     <header id="home">
-        <h1 class="reveal">Engineering Document <span>Repository</span></h1>
-        <p class="reveal">ប្រមូលផ្តុំរាល់ឯកសារពាក់ព័ន្ធនឹងគម្រោងស្រាវជ្រាវ (Capstone), ប្រព័ន្ធគ្រប់គ្រងស្វ័យប្រវត្តិកម្ម និងការរចនាប្លង់សៀគ្វីអេឡិចត្រូនិក។</p>
+        <div class="profile-container reveal">
+            <div class="profile-glow"></div>
+            <img src="profile.jpg" alt="Beav Chhunly" class="profile-pic" onerror="this.src='https://via.placeholder.com/180?text=Profile'">
+        </div>
+        
+        <div class="typing-container reveal" style="transition-delay: 0.2s;">
+            <div class="typing-text" id="typewriter"></div><span class="cursor"></span>
+        </div>
+        
+        <p class="reveal" style="transition-delay: 0.4s;">ប្រមូលផ្តុំរាល់ឯកសារពាក់ព័ន្ធនឹងគម្រោងស្រាវជ្រាវ (Capstone), ប្រព័ន្ធគ្រប់គ្រងស្វ័យប្រវត្តិកម្ម, Internet of Things (IoT) និងការរចនាប្លង់សៀគ្វីអេឡិចត្រូនិក។</p>
     </header>
 
     <section class="about-section reveal" id="about">
         <div>
             <h2 class="about-title">គោលដៅ និងទស្សនៈវិស័យ</h2>
-            <p style="color: var(--text-muted); line-height: 1.8;">ខ្ញុំជានិស្សិតឆ្នាំទី៤ នៃវិទ្យាស្ថានជាតិពហុបច្ចេកទេសកម្ពុជា (NPIC)។ ខ្ញុំមានចំណង់ចំណូលចិត្តខ្លាំងក្នុងការអភិវឌ្ឍន៍ប្រព័ន្ធស្វ័យប្រវត្តិកម្ម (Automation) រួមបញ្ចូលជាមួយបច្ចេកវិទ្យា IoT និងការរចនា Hardware ដើម្បីបង្កើតជាដំណោះស្រាយថ្មីៗក្នុងវិស័យឧស្សាហកម្ម។</p>
+            <p style="color: var(--text-muted); line-height: 1.8;">ខ្ញុំជានិស្សិតឆ្នាំទី៤ នៃវិទ្យាស្ថានជាតិពហុបច្ចេកទេសកម្ពុជា (NPIC)។ ខ្ញុំមានចំណង់ចំណូលចិត្តខ្លាំងក្នុងការអភិវឌ្ឍន៍ប្រព័ន្ធស្វ័យប្រវត្តិកម្ម (Automation) រួមបញ្ចូលជាមួយបច្ចេកវិទ្យា IoT និងការរចនា Hardware ដើម្បីបង្កើតជាដំណោះស្រាយថ្មីៗក្នុងវិស័យឧស្សាហកម្ម និងបច្ចេកវិទ្យា។</p>
         </div>
         <div>
             <h2 class="about-title" style="font-size: 1.1rem;">ជំនាញ និងបច្ចេកវិទ្យា៖</h2>
@@ -140,6 +192,7 @@
         </div>
     </section>
 
+    <!-- ផ្នែកគម្រោង -->
     <div class="container" id="projects">
         <div class="section-header reveal">
             <h2>ឯកសារគម្រោងអភិវឌ្ឍន៍</h2>
@@ -147,8 +200,6 @@
         </div>
         
         <div class="projects-grid">
-            
-            <!-- កាតគម្រោង Buck & Boost Converter -->
             <div class="project-card reveal" style="transition-delay: 0s;">
                 <h3>Buck & Boost Converter 100W</h3>
                 <div class="tags"><i class="fas fa-tag"></i> Power Electronics | ESP32 | KiCad</div>
@@ -158,7 +209,6 @@
                 </a>
             </div>
             
-            <!-- កាតគម្រោង Smart Attendance -->
             <div class="project-card reveal" style="transition-delay: 0.1s;">
                 <h3>ប្រព័ន្ធស្កេនវត្តមានដោយក្រាមដៃ</h3>
                 <div class="tags"><i class="fas fa-tag"></i> AS608 | NFC | ESP32</div>
@@ -167,7 +217,56 @@
                     <i class="fab fa-github"></i> មើលកូដនៅលើ GitHub
                 </a>
             </div>
+        </div>
+    </div>
 
+    <!-- ផ្នែកថ្មី៖ វិញ្ញាបនបត្រ (Certificates Gallery) -->
+    <div class="container" id="certificates">
+        <div class="section-header reveal">
+            <h2>វិញ្ញាបនបត្រ និងសមិទ្ធផល</h2>
+            <p style="color: var(--text-muted);">សមិទ្ធផល, រង្វាន់ជ័យលាភី និងការទទួលស្គាល់កម្រិតជាតិ និងអន្តរជាតិ</p>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- វិញ្ញាបនបត្រទី១: Bronze Award -->
+            <div class="project-card reveal" style="transition-delay: 0s;">
+                <div class="cert-img-wrapper">
+                    <img src="cert1.jpg" alt="Bronze Award" class="cert-img" onerror="this.src='https://via.placeholder.com/400x240?text=Certificate+1'">
+                </div>
+                <h3 style="font-size: 1.2rem;">2026 World Vocational College Skills Competition</h3>
+                <div class="tags"><i class="fas fa-medal"></i> Bronze Award | International</div>
+                <p>ទទួលបានជ័យលាភីមេដាយសំរឹទ្ធ (Bronze Award) ក្នុងការប្រកួតប្រជែងជំនាញវិជ្ជាជីវៈកម្រិតអន្តរជាតិ វគ្គផ្តាច់ព្រ័ត្រឆ្នាំ២០២៦។</p>
+            </div>
+
+            <!-- វិញ្ញាបនបត្រទី២: HAM Fair Tokyo -->
+            <div class="project-card reveal" style="transition-delay: 0.1s;">
+                <div class="cert-img-wrapper">
+                    <img src="cert4.jpg" alt="HAM Fair Tokyo" class="cert-img" onerror="this.src='https://via.placeholder.com/400x240?text=Certificate+4'">
+                </div>
+                <h3 style="font-size: 1.2rem;">HAM Fair 2024 - Tokyo, Japan</h3>
+                <div class="tags"><i class="fas fa-globe-asia"></i> International Exchange Award</div>
+                <p>វិញ្ញាបនបត្របញ្ជាក់ពីការចូលរួមអភិវឌ្ឍន៍ឧបករណ៍ហ្វឹកហាត់ Morse Code ទទួលបានពានរង្វាន់អន្តរជាតិនៅទីក្រុងតូក្យូ ប្រទេសជប៉ុន។</p>
+            </div>
+
+            <!-- វិញ្ញាបនបត្រទី៣: ARDF / Fox Hunting -->
+            <div class="project-card reveal" style="transition-delay: 0.2s;">
+                <div class="cert-img-wrapper">
+                    <img src="cert3.jpg" alt="ARDF Fox Hunting" class="cert-img" onerror="this.src='https://via.placeholder.com/400x240?text=Certificate+3'">
+                </div>
+                <h3 style="font-size: 1.2rem;">ARDF / Fox Hunting Participation</h3>
+                <div class="tags"><i class="fas fa-broadcast-tower"></i> JICA | NPIC | Radio</div>
+                <p>វិញ្ញាបនបត្របញ្ជាក់ពីការចូលរួមយ៉ាងសកម្មក្នុងកម្មវិធីស្វែងរកទិសដៅវិទ្យុទាក់ទង (ARDF) នៅឧទ្យានជាតិគិរីរម្យ កាលពីថ្ងៃទី២២ ខែមីនា ឆ្នាំ២០២៤។</p>
+            </div>
+
+            <!-- វិញ្ញាបនបត្រទី៤: NPIC Diploma -->
+            <div class="project-card reveal" style="transition-delay: 0.3s;">
+                <div class="cert-img-wrapper">
+                    <img src="cert2.jpg" alt="NPIC Certificate" class="cert-img" onerror="this.src='https://via.placeholder.com/400x240?text=Certificate+2'">
+                </div>
+                <h3 style="font-size: 1.2rem;">Technical & Vocational Certificate 2</h3>
+                <div class="tags"><i class="fas fa-graduation-cap"></i> Telecommunication | NPIC</div>
+                <p>សញ្ញាបត្របច្ចេកទេស និងវិជ្ជាជីវៈទី២ (កម្រិត៣) ជំនាញទូរគមនាគមន៍ ចេញដោយក្រសួងការងារ និងបណ្តុះបណ្តាលវិជ្ជាជីវៈ ឆ្នាំ២០២២។</p>
+            </div>
         </div>
     </div>
     
@@ -180,10 +279,51 @@
             <a href="https://github.com/Dim2308" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
             <a href="https://t.me/AhDim_2" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
         </div>
-        <p style="color: #64748b; font-size: 0.9rem; margin-top: 30px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ Dim</p>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 30px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ Beav Chhunly (Dim)</p>
     </footer>
 
+    <!-- JavaScript សម្រាប់ Typing Effect និង Scroll Animation -->
     <script>
+        // Typing Effect Script
+        const texts = [
+            "សួស្តី! ខ្ញុំឈ្មោះ <span>បៀវ ឈុនលី (Dim)</span>",
+            "ខ្ញុំជានិស្សិតវិស្វកម្មអេឡិចត្រូនិក 👨‍💻",
+            "សូមស្វាគមន៍មកកាន់ Portfolio របស់ខ្ញុំ 🚀"
+        ];
+        
+        let count = 0;
+        let index = 0;
+        let currentText = '';
+        let letter = '';
+        let isDeleting = false;
+        let typingSpeed = 100;
+
+        function type() {
+            if (count === texts.length) { count = 0; }
+            currentText = texts[count];
+
+            if (isDeleting) {
+                letter = currentText.slice(0, --index);
+                typingSpeed = 50; // ល្បឿនលុប
+            } else {
+                letter = currentText.slice(0, ++index);
+                typingSpeed = 100; // ល្បឿនវាយ
+            }
+
+            document.getElementById('typewriter').innerHTML = letter;
+
+            if (!isDeleting && letter.length === currentText.length) {
+                typingSpeed = 2500; // ផ្អាកពេលវាយចប់១ឃ្លា
+                isDeleting = true;
+            } else if (isDeleting && letter.length === 0) {
+                isDeleting = false;
+                count++;
+                typingSpeed = 500; // ផ្អាកមុនវាយឃ្លាថ្មី
+            }
+            setTimeout(type, typingSpeed);
+        }
+
+        // Scroll Reveal Animation Script
         function initScrollAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { 
@@ -197,6 +337,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(type, 1000); // ចាប់ផ្តើម Typing Effect ក្រោយ ១ វិនាទី
             initScrollAnimations();
         });
     </script>
