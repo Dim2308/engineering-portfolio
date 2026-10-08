@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | គ្រប់គ្រងគម្រោង</title>
+    <!-- Fonts, Icons & SweetAlert2 -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary: #2563eb; --danger: #ef4444; 
+            --bg-color: #f1f5f9; --card-bg: #ffffff;
+            --text-main: #1e293b; --border: #e2e8f0;
+        }
+        * { box-sizing: border-box; font-family: 'Kantumruy Pro', sans-serif; }
+        body { margin: 0; background-color: var(--bg-color); color: var(--text-main); }
+        
+        nav { background: #0f172a; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        nav h1 { margin: 0; font-size: 1.2rem; }
+        .btn-view { background: rgba(255,255,255,0.1); color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 0.9rem; border: 1px solid rgba(255,255,255,0.2); transition: 0.3s; }
+        .btn-view:hover { background: rgba(255,255,255,0.2); }
+
+        .container { max-width: 1400px; margin: 30px auto; padding: 0 20px; display: grid; grid-template-columns: 350px 1fr; gap: 30px; align-items: start; }
+        
+        .form-card { background: var(--card-bg); padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid var(--border); position: sticky; top: 20px; }
+        .form-card h2 { margin-top: 0; font-size: 1.2rem; color: var(--primary); margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 5px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.9rem; outline: none; transition: 0.3s; }
+        .form-group input:focus, .form-group textarea:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+        .form-group textarea { height: 90px; resize: vertical; }
+        .btn-submit { background: var(--primary); color: white; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-submit:hover { background: #1d4ed8; }
+
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .project-card { background: var(--card-bg); border-radius: 12px; padding: 20px; border: 1px solid var(--border); position: relative; display: flex; flex-direction: column; }
+        .btn-delete { position: absolute; top: 15px; right: 15px; background: #fee2e2; color: var(--danger); width: 32px; height: 32px; border-radius: 50%; border: none; cursor: pointer; transition: 0.3s; display: flex; justify-content: center; align-items: center; }
+        .btn-delete:hover { background: var(--danger); color: white; }
+        .project-card h3 { margin: 0 0 10px 0; font-size: 1.1rem; padding-right: 30px; }
+        .tags { font-size: 0.8rem; color: var(--primary); background: #eff6ff; padding: 4px 10px; border-radius: 20px; display: inline-block; margin-bottom: 10px; font-weight: 600; }
+        .project-card p { font-size: 0.9rem; color: #475569; flex-grow: 1; }
+
+        @media (max-width: 900px) { .container { grid-template-columns: 1fr; } .form-card { position: static; } }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h1><i class="fas fa-shield-alt"></i> Admin Dashboard</h1>
+        <a href="index.html" target="_blank" class="btn-view"><i class="fas fa-external-link-alt"></i> មើលទំព័រវេបសាយ</a>
+    </nav>
+
+    <div class="container">
+        <div class="form-card">
+            <h2><i class="fas fa-plus-circle"></i> បន្ថែមគម្រោង</h2>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label>ឈ្មោះគម្រោង</label>
+                    <input type="text" id="pName" required>
+                </div>
+                <div class="form-group">
+                    <label>បច្ចេកវិទ្យា (Tags)</label>
+                    <input type="text" id="pTags" placeholder="ឧ. PLC, ESP32" required>
+                </div>
+                <div class="form-group">
+                    <label>ការពិពណ៌នា</label>
+                    <textarea id="pDesc" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>តំណរទាញយកឯកសារ</label>
+                    <input type="url" id="pLink" required>
+                </div>
+                <button type="submit" class="btn-submit"><i class="fas fa-save"></i> រក្សាទុក</button>
+            </form>
+        </div>
+
+        <div class="projects-grid" id="projectsContainer"></div>
+    </div>
+
+    <script>
+        function getProjects() { return JSON.parse(localStorage.getItem('myProjects')) || []; }
+
+        function renderProjects() {
+            const container = document.getElementById('projectsContainer');
+            const projects = getProjects();
+            container.innerHTML = '';
+            projects.reverse().forEach(project => {
+                container.innerHTML += `
+                    <div class="project-card">
+                        <button class="btn-delete" onclick="deleteProject(${project.id})"><i class="fas fa-trash"></i></button>
+                        <h3>${project.name}</h3>
+                        <div class="tags"><i class="fas fa-tag"></i> ${project.tags}</div>
+                        <p>${project.desc}</p>
+                    </div>
+                `;
+            });
+        }
+
+        document.getElementById('projectForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newProject = {
+                id: Date.now(),
+                name: document.getElementById('pName').value,
+                tags: document.getElementById('pTags').value,
+                desc: document.getElementById('pDesc').value,
+                link: document.getElementById('pLink').value
+            };
+            const projects = getProjects();
+            projects.push(newProject);
+            localStorage.setItem('myProjects', JSON.stringify(projects));
+            this.reset();
+            renderProjects();
+            
+            Swal.fire({ title: 'ជោគជ័យ!', text: 'គម្រោងត្រូវបានរក្សាទុក', icon: 'success', timer: 1500, showConfirmButton: false });
+        });
+
+        function deleteProject(id) {
+            Swal.fire({
+                title: 'លុបទិន្នន័យ?', text: "អ្នកមិនអាចយកវាត្រឡប់មកវិញបានទេ!", icon: 'warning',
+                showCancelButton: true, confirmButtonColor: '#ef4444', cancelButtonColor: '#64748b',
+                confirmButtonText: 'លុប', cancelButtonText: 'បោះបង់'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let projects = getProjects().filter(p => p.id !== id);
+                    localStorage.setItem('myProjects', JSON.stringify(projects));
+                    renderProjects();
+                    Swal.fire({ title: 'បានលុប!', icon: 'success', timer: 1000, showConfirmButton: false });
+                }
+            });
+        }
+
+        renderProjects();
+    </script>
+</body>
+</html>

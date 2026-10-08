@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ប្រវត្តិរូបសង្ខេប | NPIC វិស្វករ</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* កំណត់ពណ៌ និងអថេរគោល (CSS Variables) */
+        :root {
+            --primary: #0ea5e9; --primary-dark: #0284c7;
+            --bg-dark: #0f172a; --bg-light: #f8fafc; --card-bg: #ffffff;
+            --text-dark: #1e293b; --text-muted: #64748b;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* រចនាប័ទ្មទូទៅ */
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Kantumruy Pro', sans-serif; background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        a { text-decoration: none; }
+
+        /* របារម៉ឺនុយ (Glassmorphism Navbar) */
+        .navbar {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; box-sizing: border-box;
+        }
+        .logo { color: white; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--primary); }
+        .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: #cbd5e1; font-weight: 500; position: relative; padding-bottom: 5px; transition: var(--transition); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--primary); transition: var(--transition); }
+        .nav-links a:hover { color: white; }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* ផ្នែកក្បាល (Animated Hero Section) */
+        header { 
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #0284c7, #0f172a); background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite; color: white; 
+            padding: 160px 20px 100px; text-align: center; 
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        header h1 { margin: 0; font-size: 3rem; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        header h1 span { color: var(--primary); }
+        header p { margin: 20px auto 0; font-size: 1.1rem; color: #cbd5e1; max-width: 700px; line-height: 1.6; }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ផ្នែកអំពីខ្ញុំ (About Card) */
+        .about-section {
+            max-width: 1000px; margin: -50px auto 50px; padding: 40px; box-sizing: border-box;
+            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
+            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid white;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; position: relative; z-index: 10;
+        }
+        .about-title { font-size: 1.5rem; color: var(--bg-dark); margin: 0 0 15px 0; }
+        .skills-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+        .skills-list li { background: var(--bg-light); color: var(--bg-dark); padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: 1px solid #e2e8f0; transition: var(--transition); cursor: default; }
+        .skills-list li:hover { background: var(--primary); color: white; transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 5px 15px rgba(14,165,233,0.2); }
+
+        /* ផ្នែកគម្រោង (Projects) */
+        .container { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-header h2 { font-size: 2rem; color: var(--bg-dark); margin: 0; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
+        
+        .project-card { 
+            background: var(--card-bg); border-radius: 16px; padding: 30px; 
+            display: flex; flex-direction: column; border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition); position: relative; overflow: hidden;
+        }
+        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+        .project-card:hover::before { transform: scaleX(1); }
+        .project-card h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: var(--bg-dark); }
+        .tags { font-size: 0.8rem; color: var(--primary); background: #f0f9ff; padding: 6px 12px; border-radius: 20px; display: inline-block; margin-bottom: 15px; font-weight: 600; }
+        .project-card p { flex-grow: 1; font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 25px; }
+        
+        .btn-download { 
+            background-color: var(--bg-dark); color: white; padding: 12px; border-radius: 10px; 
+            text-align: center; font-weight: 600; transition: var(--transition); display: flex; justify-content: center; align-items: center; gap: 8px; 
+        }
+        .btn-download:hover { background-color: var(--primary); box-shadow: 0 5px 15px rgba(14,165,233,0.3); transform: translateY(-2px); }
+
+        /* ផ្នែកទំនាក់ទំនង (Footer) */
+        footer { background: var(--bg-dark); color: white; text-align: center; padding: 60px 20px 30px; margin-top: 50px; }
+        .social-icons { margin: 25px 0; display: flex; justify-content: center; gap: 15px; }
+        .social-icons a { 
+            color: white; background: rgba(255,255,255,0.1); width: 45px; height: 45px; 
+            display: flex; justify-content: center; align-items: center; border-radius: 50%; 
+            font-size: 1.2rem; transition: var(--transition); 
+        }
+        .social-icons a:hover { background: var(--primary); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(14,165,233,0.4); }
+
+        /* Responsive សម្រាប់ទូរស័ព្ទ */
+        @media (max-width: 768px) {
+            .about-section { grid-template-columns: 1fr; margin: -30px 20px 40px; padding: 25px; }
+            .nav-links { display: none; }
+            header h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-layer-group"></i> NPIC Engineer</div>
+        <ul class="nav-links">
+            <li><a href="#home">ទំព័រដើម</a></li>
+            <li><a href="#about">ប្រវត្តិរូប</a></li>
+            <li><a href="#projects">ឯកសារគម្រោង</a></li>
+            <li><a href="#contact">ទំនាក់ទំនង</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <h1 class="reveal">Engineering Document <span>Repository</span></h1>
+        <p class="reveal">ប្រមូលផ្តុំរាល់ឯកសារពាក់ព័ន្ធនឹងគម្រោងស្រាវជ្រាវ (Capstone), ប្រព័ន្ធគ្រប់គ្រងស្វ័យប្រវត្តិកម្ម និងការរចនាប្លង់សៀគ្វីអេឡិចត្រូនិក។</p>
+    </header>
+
+    <section class="about-section reveal" id="about">
+        <div>
+            <h2 class="about-title">គោលដៅ និងទស្សនៈវិស័យ</h2>
+            <p style="color: var(--text-muted); line-height: 1.8;">ខ្ញុំជានិស្សិតឆ្នាំទី៤ នៃវិទ្យាស្ថានជាតិពហុបច្ចេកទេសកម្ពុជា (NPIC)។ ខ្ញុំមានចំណង់ចំណូលចិត្តខ្លាំងក្នុងការអភិវឌ្ឍន៍ប្រព័ន្ធស្វ័យប្រវត្តិកម្ម (Automation) រួមបញ្ចូលជាមួយបច្ចេកវិទ្យា IoT និងការរចនា Hardware ដើម្បីបង្កើតជាដំណោះស្រាយថ្មីៗក្នុងវិស័យឧស្សាហកម្ម។</p>
+        </div>
+        <div>
+            <h2 class="about-title" style="font-size: 1.1rem;">ជំនាញ និងបច្ចេកវិទ្យា៖</h2>
+            <ul class="skills-list">
+                <li><i class="fas fa-robot"></i> Siemens PLC (TIA Portal)</li>
+                <li><i class="fas fa-microchip"></i> STM32 & ESP32</li>
+                <li><i class="fas fa-network-wired"></i> MQTT & Node-RED</li>
+                <li><i class="fas fa-bolt"></i> KiCad (PCB Layout)</li>
+                <li><i class="fas fa-code"></i> C/C++ & VHDL</li>
+            </ul>
+        </div>
+    </section>
+
+    <div class="container" id="projects">
+        <div class="section-header reveal">
+            <h2>ឯកសារគម្រោងអភិវឌ្ឍន៍</h2>
+            <p style="color: var(--text-muted);">អ្នកអាចចូលមើល និងទាញយកកូដ ឬ Schematic នៃគម្រោងនីមួយៗ</p>
+        </div>
+        <div class="projects-grid" id="projectsContainer"></div>
+    </div>
+    
+    <footer id="contact">
+        <h2 class="reveal">ភ្ជាប់ទំនាក់ទំនងជាមួយខ្ញុំ</h2>
+        <p class="reveal" style="color: #cbd5e1;">មានសំណួរ ឬចង់ពិភាក្សាពីគម្រោងវិស្វកម្ម? អាចទាក់ទងមកខ្ញុំបាន៖</p>
+        
+        <div class="social-icons reveal">
+            <!-- ភ្ជាប់ទៅកាន់ Email របស់អ្នកផ្ទាល់ -->
+            <a href="mailto:beavchhunly65@gmail.com" title="ផ្ញើអ៊ីមែល"><i class="fas fa-envelope"></i></a>
+            <!-- ភ្ជាប់ទៅកាន់ GitHub របស់អ្នក -->
+            <a href="https://github.com/Dim2308" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <!-- ភ្ជាប់ទៅកាន់ Telegram របស់អ្នក -->
+            <a href="https://t.me/AhDim_2" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+        </div>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 30px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ Dim</p>
+    </footer>
+
+    <script>
+        // Scroll Animation Logic
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Render Projects from LocalStorage
+        function renderProjects() {
+            const container = document.getElementById('projectsContainer');
+            const projects = JSON.parse(localStorage.getItem('myProjects')) || [];
+            container.innerHTML = '';
+            
+            if(projects.length === 0) {
+                container.innerHTML = `
+                    <div class="reveal" style="text-align: center; padding: 60px 20px; grid-column: 1 / -1; border: 2px dashed #cbd5e1; border-radius: 16px;">
+                        <i class="fas fa-folder-open" style="font-size: 3rem; color: #cbd5e1; margin-bottom:15px;"></i>
+                        <h3 style="color: #64748b;">មិនទាន់មានឯកសារនៅឡើយទេ</h3>
+                    </div>`;
+            } else {
+                projects.reverse().forEach((project, index) => {
+                    const delay = (index % 3) * 0.1; 
+                    container.innerHTML += `
+                        <div class="project-card reveal" style="transition-delay: ${delay}s;">
+                            <h3>${project.name}</h3>
+                            <div class="tags"><i class="fas fa-tag"></i> ${project.tags}</div>
+                            <p>${project.desc}</p>
+                            <a href="${project.link}" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកឯកសារ</a>
+                        </div>
+                    `;
+                });
+            }
+            setTimeout(initScrollAnimations, 100);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects();
+            initScrollAnimations();
+        });
+        window.addEventListener('storage', renderProjects);
+    </script>
+</body>
+</html>
