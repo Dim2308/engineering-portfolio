@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ប្រវត្តិរូបសង្ខេប | NPIC វិស្វករ</title>
+    <title>Dim - Engineering Portfolio | NPIC</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -145,7 +145,38 @@
             <h2>ឯកសារគម្រោងអភិវឌ្ឍន៍</h2>
             <p style="color: var(--text-muted);">អ្នកអាចចូលមើល និងទាញយកកូដ ឬ Schematic នៃគម្រោងនីមួយៗ</p>
         </div>
-        <div class="projects-grid" id="projectsContainer"></div>
+        
+        <div class="projects-grid">
+            
+            <div class="project-card reveal" style="transition-delay: 0s;">
+                <h3>ប្រព័ន្ធ Smart ASRS</h3>
+                <div class="tags"><i class="fas fa-tag"></i> Siemens PLC | SCARA Robot | ESP32</div>
+                <p>គម្រោង Capstone ដែលរួមបញ្ចូលប្រព័ន្ធស្តុកទំនិញស្វ័យប្រវត្តិ បញ្ជាដោយ PLC និងភ្ជាប់ទិន្នន័យទៅកាន់ផ្ទាំងគ្រប់គ្រង IoT តាមរយៈ MQTT។</p>
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកឯកសារ</a>
+            </div>
+
+            <div class="project-card reveal" style="transition-delay: 0.1s;">
+                <h3>AC Smart Meter</h3>
+                <div class="tags"><i class="fas fa-tag"></i> ESP32 | ZMPT101B | ACS712</div>
+                <p>ឧបករណ៍វាស់វ៉ុល និងចរន្តអគ្គិសនី AC រួចគណនាថាមពលប្រើប្រាស់ដោយគណនា RMS បង្ហាញនៅលើអេក្រង់ LCD។</p>
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកកូដ C++</a>
+            </div>
+
+            <div class="project-card reveal" style="transition-delay: 0.2s;">
+                <h3>Buck Converter 100W</h3>
+                <div class="tags"><i class="fas fa-tag"></i> STM32 | IR2110 | KiCad</div>
+                <p>ការរចនាប្រព័ន្ធបំលែងវ៉ុល DC ពី 24V ទៅ 12V ជាមួយចរន្ត 8.33A។ ឯកសាររួមមានប្លង់ Schematic និងការគណនា។</p>
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកប្លង់សៀគ្វី</a>
+            </div>
+            
+            <div class="project-card reveal" style="transition-delay: 0.3s;">
+                <h3>ប្រព័ន្ធស្កេនវត្តមានដោយក្រាមដៃ</h3>
+                <div class="tags"><i class="fas fa-tag"></i> AS608 | NFC | ESP32</div>
+                <p>ប្រព័ន្ធកត់ត្រាវត្តមានសិស្សដោយស្វ័យប្រវត្តិ ប្រើប្រាស់សេនស័រក្រាមដៃគួបផ្សំជាមួយការប្រើកាត NFC និងភ្ជាប់ជាមួយអេក្រង់ OLED។</p>
+                <a href="#" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកឯកសារ</a>
+            </div>
+
+        </div>
     </div>
     
     <footer id="contact">
@@ -153,58 +184,29 @@
         <p class="reveal" style="color: #cbd5e1;">មានសំណួរ ឬចង់ពិភាក្សាពីគម្រោងវិស្វកម្ម? អាចទាក់ទងមកខ្ញុំបាន៖</p>
         
         <div class="social-icons reveal">
-            <!-- ភ្ជាប់ទៅកាន់ Email របស់អ្នកផ្ទាល់ -->
             <a href="mailto:beavchhunly65@gmail.com" title="ផ្ញើអ៊ីមែល"><i class="fas fa-envelope"></i></a>
-            <!-- ភ្ជាប់ទៅកាន់ GitHub របស់អ្នក -->
             <a href="https://github.com/Dim2308" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <!-- ភ្ជាប់ទៅកាន់ Telegram របស់អ្នក -->
             <a href="https://t.me/AhDim_2" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
         </div>
         <p style="color: #64748b; font-size: 0.9rem; margin-top: 30px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ Dim</p>
     </footer>
 
     <script>
-        // Scroll Animation Logic
         function initScrollAnimations() {
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+                entries.forEach(entry => { 
+                    if(entry.isIntersecting) {
+                        entry.target.classList.add('active'); 
+                    }
+                });
             }, { threshold: 0.1 });
+            
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
 
-        // Render Projects from LocalStorage
-        function renderProjects() {
-            const container = document.getElementById('projectsContainer');
-            const projects = JSON.parse(localStorage.getItem('myProjects')) || [];
-            container.innerHTML = '';
-            
-            if(projects.length === 0) {
-                container.innerHTML = `
-                    <div class="reveal" style="text-align: center; padding: 60px 20px; grid-column: 1 / -1; border: 2px dashed #cbd5e1; border-radius: 16px;">
-                        <i class="fas fa-folder-open" style="font-size: 3rem; color: #cbd5e1; margin-bottom:15px;"></i>
-                        <h3 style="color: #64748b;">មិនទាន់មានឯកសារនៅឡើយទេ</h3>
-                    </div>`;
-            } else {
-                projects.reverse().forEach((project, index) => {
-                    const delay = (index % 3) * 0.1; 
-                    container.innerHTML += `
-                        <div class="project-card reveal" style="transition-delay: ${delay}s;">
-                            <h3>${project.name}</h3>
-                            <div class="tags"><i class="fas fa-tag"></i> ${project.tags}</div>
-                            <p>${project.desc}</p>
-                            <a href="${project.link}" target="_blank" class="btn-download"><i class="fas fa-download"></i> ទាញយកឯកសារ</a>
-                        </div>
-                    `;
-                });
-            }
-            setTimeout(initScrollAnimations, 100);
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            renderProjects();
             initScrollAnimations();
         });
-        window.addEventListener('storage', renderProjects);
     </script>
 </body>
 </html>
