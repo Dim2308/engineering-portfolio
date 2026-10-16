@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - Beav Chhunly (Dim)</title>
+    
+    <!-- SEO Meta Tags សម្រាប់ Google -->
+    <meta name="description" content="ឯកសារគម្រោងអភិវឌ្ឍន៍វិស្វកម្មរបស់ Beav Chhunly (Dim) រួមមាន Buck & Boost Converter 100W និង Smart Attendance។">
+    <meta name="keywords" content="Engineering Projects, ESP32, KiCad, Power Electronics, Beav Chhunly, Dim, Portfolio">
+    <meta name="author" content="Beav Chhunly">
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0ea5e9; --primary-dark: #0284c7;
+            --bg-dark: #0f172a; --bg-light: #f8fafc; --card-bg: #ffffff;
+            --text-dark: #1e293b; --text-muted: #64748b;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; font-family: 'Kantumruy Pro', sans-serif; background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        a { text-decoration: none; }
+
+        /* Navbar */
+        .navbar {
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; box-sizing: border-box;
+        }
+        .logo { color: white; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        .logo i { color: var(--primary); }
+        .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: #cbd5e1; font-weight: 500; position: relative; padding-bottom: 5px; transition: var(--transition); }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--primary); transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: white; }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        /* Header សម្រាប់ទំព័រគម្រោង */
+        header { 
+            background: linear-gradient(-45deg, #0f172a, #1e293b, #0284c7, #0f172a); background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite; color: white; 
+            padding: 140px 20px 80px; text-align: center; 
+        }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        header h1 { margin: 0; font-size: 2.5rem; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        header p { margin: 15px auto 0; font-size: 1.1rem; color: #cbd5e1; max-width: 700px; }
+
+        /* Animation Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Projects Section Layout */
+        .container { max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
+        
+        .project-card { 
+            background: var(--card-bg); border-radius: 16px; padding: 30px; 
+            display: flex; flex-direction: column; border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition); position: relative; overflow: hidden;
+        }
+        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+        .project-card:hover::before { transform: scaleX(1); }
+        .project-card h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: var(--bg-dark); display: flex; align-items: center; gap: 10px; line-height: 1.4; }
+        .tags { font-size: 0.8rem; color: var(--primary); background: #f0f9ff; padding: 6px 12px; border-radius: 20px; display: inline-block; margin-bottom: 15px; font-weight: 600; align-self: flex-start; }
+        .project-card p { flex-grow: 1; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 25px; }
+        
+        .btn-download { 
+            background-color: var(--bg-dark); color: white; padding: 12px; border-radius: 10px; 
+            text-align: center; font-weight: 600; transition: var(--transition); display: flex; justify-content: center; align-items: center; gap: 8px; 
+        }
+        .btn-download:hover { background-color: var(--primary); box-shadow: 0 5px 15px rgba(14,165,233,0.3); transform: translateY(-2px); }
+
+        /* Footer */
+        footer { background: var(--bg-dark); color: white; text-align: center; padding: 60px 20px 30px; margin-top: 50px; }
+        .social-icons { margin: 25px 0; display: flex; justify-content: center; gap: 15px; }
+        .social-icons a { 
+            color: white; background: rgba(255,255,255,0.1); width: 45px; height: 45px; 
+            display: flex; justify-content: center; align-items: center; border-radius: 50%; 
+            font-size: 1.2rem; transition: var(--transition); 
+        }
+        .social-icons a:hover { background: var(--primary); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(14,165,233,0.4); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .project-card h3 { font-size: 1.2rem; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><i class="fas fa-layer-group"></i> NPIC Engineer</div>
+        <ul class="nav-links">
+            <li><a href="index.html">ទំព័រដើម</a></li>
+            <li><a href="index.html#about">ប្រវត្តិរូប</a></li>
+            <li><a href="projects.html" class="active">គម្រោង</a></li>
+            <li><a href="index.html#certificates">សមិទ្ធផល</a></li>
+            <li><a href="#contact">ទំនាក់ទំនង</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <h1 class="reveal">ឯកសារគម្រោងអភិវឌ្ឍន៍</h1>
+        <p class="reveal">អ្នកអាចចូលមើល និងទាញយកកូដ ឬ Schematic នៃគម្រោងនីមួយៗបានយ៉ាងងាយស្រួល</p>
+    </header>
+
+    <div class="container">
+        <div class="projects-grid">
+            <div class="project-card reveal" style="transition-delay: 0s;">
+                <h3><i class="fas fa-microchip" style="color: var(--primary);"></i> Buck & Boost Converter 100W</h3>
+                <div class="tags"><i class="fas fa-tag"></i> Power Electronics | ESP32 | KiCad</div>
+                <p>របាយការណ៍គម្រោងរចនា Synchronous Boost (12V-24V) និង Buck Converter (24V-12V) កម្លាំង 100W ប្រើប្រាស់ ESP32។ មានការគណនា Simulation និងប្លង់ PCB។</p>
+                <a href="https://github.com/Dim2308/buck-boost-converter-100w" target="_blank" class="btn-download" style="background-color: #24292e;">
+                    <i class="fab fa-github"></i> មើលកូដនៅលើ GitHub
+                </a>
+            </div>
+            
+            <div class="project-card reveal" style="transition-delay: 0.1s;">
+                <h3><i class="fas fa-fingerprint" style="color: var(--primary);"></i> ប្រព័ន្ធស្កេនវត្តមានដោយក្រាមដៃ</h3>
+                <div class="tags"><i class="fas fa-tag"></i> AS608 | NFC | ESP32</div>
+                <p>ប្រព័ន្ធកត់ត្រាវត្តមានសិស្សដោយស្វ័យប្រវត្តិ ប្រើប្រាស់សេនស័រក្រាមដៃគួបផ្សំជាមួយការប្រើកាត NFC និងភ្ជាប់ជាមួយអេក្រង់ OLED។</p>
+                <a href="https://github.com/Dim2308/npic-smart-attendance" target="_blank" class="btn-download" style="background-color: #24292e;">
+                    <i class="fab fa-github"></i> មើលកូដនៅលើ GitHub
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <footer id="contact">
+        <h2 class="reveal">ភ្ជាប់ទំនាក់ទំនងជាមួយខ្ញុំ</h2>
+        <div class="social-icons reveal">
+            <a href="mailto:beavchhunly65@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/Dim2308" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://t.me/AhDim_2" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+        </div>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 30px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ Beav Chhunly (Dim)</p>
+    </footer>
+
+    <script>
+        function initScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+        document.addEventListener('DOMContentLoaded', () => { initScrollAnimations(); });
+    </script>
+</body>
+</html>
