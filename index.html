@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beav Chhunly (Dim) - Engineering Portfolio</title>
-    <meta name="google-site-verification" content="b6CGaCwTbxT0wJe_opD4IOqjvqoMx3va4xw9ewA8mkk" />
+    
     <!-- SEO Meta Tags សម្រាប់ Google -->
     <meta name="description" content="Portfolio វិស្វកម្មរបស់ Beav Chhunly (Dim) និស្សិតវិទ្យាស្ថានជាតិពហុបច្ចេកទេសកម្ពុជា (NPIC)។ ប្រមូលផ្តុំឯកសារគម្រោង IoT, Automation និង Power Electronics។">
     <meta name="keywords" content="Beav Chhunly, Dim, Dim2308, NPIC Engineer, Cambodia, ESP32, PLC, Automation, Power Electronics Portfolio">
@@ -48,20 +48,32 @@
         }
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
+        /* Icon Profile ថ្មីជំនួសរូបថត */
         .profile-container { position: relative; display: inline-block; margin-bottom: 25px; }
-        .profile-pic {
-            width: 180px; height: 180px; border-radius: 50%; object-fit: cover;
-            border: 4px solid white; box-shadow: 0 10px 30px rgba(14, 165, 233, 0.5);
+        
+        .profile-icon-wrapper {
+            width: 150px; height: 150px; border-radius: 50%;
+            background: rgba(14, 165, 233, 0.1); border: 2px solid var(--primary);
+            display: flex; justify-content: center; align-items: center;
+            font-size: 4.5rem; color: #38bdf8;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
             position: relative; z-index: 2; animation: float 6s ease-in-out infinite;
+            backdrop-filter: blur(5px);
         }
-        @keyframes float { 0%, 100% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(14, 165, 233, 0.5); } 50% { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(14, 165, 233, 0.7); } }
+        
+        @keyframes float { 
+            0%, 100% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3); } 
+            50% { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(14, 165, 233, 0.5); } 
+        }
+        
         .profile-glow {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 190px; height: 190px; background: var(--primary); border-radius: 50%;
-            filter: blur(25px); opacity: 0.6; z-index: 1; animation: pulse 3s ease-in-out infinite;
+            width: 170px; height: 170px; background: var(--primary); border-radius: 50%;
+            filter: blur(25px); opacity: 0.5; z-index: 1; animation: pulse 3s ease-in-out infinite;
         }
         @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
 
+        /* Typing Effect */
         .typing-container { font-size: 2.2rem; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.3); min-height: 50px; margin: 10px 0; display: flex; justify-content: center; align-items: center; }
         .typing-text { color: white; }
         .typing-text span { color: var(--primary); }
@@ -136,9 +148,12 @@
     </nav>
 
     <header id="home">
+        <!-- បានជំនួសប្រអប់រូបថត (Image Placeholder) ដោយ Icon បន្ទះឈីប (Microchip) -->
         <div class="profile-container reveal">
             <div class="profile-glow"></div>
-            <img src="profile.jpg" alt="Beav Chhunly" class="profile-pic" onerror="this.src='https://via.placeholder.com/180?text=Profile'">
+            <div class="profile-icon-wrapper">
+                <i class="fas fa-microchip"></i>
+            </div>
         </div>
         
         <div class="typing-container reveal" style="transition-delay: 0.2s;">
