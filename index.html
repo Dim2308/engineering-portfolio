@@ -5,132 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beav Chhunly (Dim) - Engineering Portfolio</title>
     
-    <!-- SEO Meta Tags សម្រាប់ Google -->
+    <!-- SEO Meta Tags -->
     <meta name="description" content="Portfolio វិស្វកម្មរបស់ Beav Chhunly (Dim) និស្សិតវិទ្យាស្ថានជាតិពហុបច្ចេកទេសកម្ពុជា (NPIC)។ ប្រមូលផ្តុំឯកសារគម្រោង IoT, Automation និង Power Electronics។">
     <meta name="keywords" content="Beav Chhunly, Dim, Dim2308, NPIC Engineer, Cambodia, ESP32, PLC, Automation, Power Electronics Portfolio">
     <meta name="author" content="Beav Chhunly">
 
     <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
+        /* អថេរពណ៌បែប Premium */
         :root {
-            --primary: #0ea5e9; --primary-dark: #0284c7;
-            --bg-dark: #0f172a; --bg-light: #f8fafc; --card-bg: #ffffff;
-            --text-dark: #1e293b; --text-muted: #64748b;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #0ea5e9; 
+            --secondary: #6366f1;
+            --primary-glow: rgba(14, 165, 233, 0.4);
+            --bg-dark: #090e17; 
+            --bg-light: #f4f7fb; 
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text-main: #0f172a; 
+            --text-muted: #475569;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        
         html { scroll-behavior: smooth; }
-        body { margin: 0; font-family: 'Kantumruy Pro', sans-serif; background-color: var(--bg-light); color: var(--text-dark); overflow-x: hidden; }
+        body { margin: 0; font-family: 'Kantumruy Pro', 'Poppins', sans-serif; background-color: var(--bg-light); color: var(--text-main); overflow-x: hidden; }
         a { text-decoration: none; }
 
-        /* Navbar */
+        /* Premium Navbar (Glass Effect) */
         .navbar {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            background: rgba(9, 14, 23, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; box-sizing: border-box;
+            padding: 18px 6%; box-sizing: border-box;
         }
-        .logo { color: white; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-        .logo i { color: var(--primary); }
-        .nav-links { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; }
-        .nav-links a { color: #cbd5e1; font-weight: 500; position: relative; padding-bottom: 5px; transition: var(--transition); }
-        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background-color: var(--primary); transition: var(--transition); }
+        .logo { color: white; font-size: 22px; font-weight: 700; display: flex; align-items: center; gap: 10px; letter-spacing: 0.5px; }
+        .logo i { color: var(--primary); font-size: 26px; }
+        .nav-links { display: flex; gap: 35px; list-style: none; margin: 0; padding: 0; }
+        .nav-links a { color: #94a3b8; font-weight: 500; position: relative; padding-bottom: 5px; transition: var(--transition); font-size: 0.95rem; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: 0; left: 0; background: linear-gradient(90deg, var(--primary), var(--secondary)); transition: var(--transition); border-radius: 2px; }
         .nav-links a:hover, .nav-links a.active { color: white; }
         .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        /* Hero */
+        /* Sci-Fi Hero Section */
         header { 
-            background: linear-gradient(-45deg, #0f172a, #1e293b, #0284c7, #0f172a); background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite; color: white; 
-            padding: 160px 20px 100px; text-align: center; position: relative; overflow: hidden;
+            background: radial-gradient(circle at 50% 100%, #1e293b 0%, var(--bg-dark) 100%);
+            color: white; padding: 180px 20px 120px; text-align: center; position: relative; overflow: hidden;
         }
-        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        /* Icon Profile ថ្មីជំនួសរូបថត */
-        .profile-container { position: relative; display: inline-block; margin-bottom: 25px; }
-        
+        /* ចលនាពន្លឺខាងក្រោយ (Animated Background Grid) */
+        header::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px; z-index: 0; opacity: 0.5;
+        }
+
+        /* Spinning Tech HUD Icon */
+        .profile-container { position: relative; display: inline-block; margin-bottom: 35px; z-index: 2; }
         .profile-icon-wrapper {
-            width: 150px; height: 150px; border-radius: 50%;
-            background: rgba(14, 165, 233, 0.1); border: 2px solid var(--primary);
+            width: 140px; height: 140px; border-radius: 50%;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(99, 102, 241, 0.1));
             display: flex; justify-content: center; align-items: center;
             font-size: 4.5rem; color: #38bdf8;
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
-            position: relative; z-index: 2; animation: float 6s ease-in-out infinite;
-            backdrop-filter: blur(5px);
+            box-shadow: 0 0 40px var(--primary-glow);
+            position: relative; animation: float 6s ease-in-out infinite;
         }
-        
-        @keyframes float { 
-            0%, 100% { transform: translateY(0px); box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3); } 
-            50% { transform: translateY(-15px); box-shadow: 0 25px 40px rgba(14, 165, 233, 0.5); } 
+        /* ចិញ្ចៀនវិល (Rotating Ring) */
+        .profile-icon-wrapper::before {
+            content: ''; position: absolute; top: -15px; left: -15px; right: -15px; bottom: -15px;
+            border-radius: 50%; border: 2px dashed rgba(56, 189, 248, 0.4);
+            animation: spin 15s linear infinite;
         }
-        
-        .profile-glow {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 170px; height: 170px; background: var(--primary); border-radius: 50%;
-            filter: blur(25px); opacity: 0.5; z-index: 1; animation: pulse 3s ease-in-out infinite;
+        .profile-icon-wrapper::after {
+            content: ''; position: absolute; top: -5px; left: -5px; right: -5px; bottom: -5px;
+            border-radius: 50%; border: 1px solid rgba(99, 102, 241, 0.3);
+            animation: spin 10s linear infinite reverse;
         }
-        @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.1); } }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
 
-        /* Typing Effect */
-        .typing-container { font-size: 2.2rem; font-weight: 700; text-shadow: 0 4px 10px rgba(0,0,0,0.3); min-height: 50px; margin: 10px 0; display: flex; justify-content: center; align-items: center; }
+        /* Typing & Gradient Text */
+        .typing-container { font-size: 2.8rem; font-weight: 800; min-height: 60px; margin: 10px 0; z-index: 2; position: relative; letter-spacing: -0.5px; }
         .typing-text { color: white; }
-        .typing-text span { color: var(--primary); }
-        .cursor { display: inline-block; width: 4px; height: 2.2rem; background-color: var(--primary); margin-left: 5px; animation: blink 1s infinite; vertical-align: middle; }
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8, #38bdf8);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+        }
+        @keyframes shine { to { background-position: 200% center; } }
+        .cursor { display: inline-block; width: 4px; height: 2.5rem; background-color: var(--primary); margin-left: 5px; animation: blink 1s infinite; vertical-align: middle; box-shadow: 0 0 10px var(--primary); }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        header p { margin: 20px auto 0; font-size: 1.1rem; color: #cbd5e1; max-width: 700px; line-height: 1.8; }
+        
+        header p { margin: 20px auto 0; font-size: 1.15rem; color: #cbd5e1; max-width: 750px; line-height: 1.9; position: relative; z-index: 2; font-weight: 300; }
 
         /* Animation Scroll */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* About */
+        /* Premium About Section */
         .about-section {
-            max-width: 1000px; margin: -50px auto 50px; padding: 40px; box-sizing: border-box;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid white;
-            display: grid; grid-template-columns: 1fr 1fr; gap: 40px; position: relative; z-index: 10;
+            max-width: 1050px; margin: -60px auto 70px; padding: 50px; box-sizing: border-box;
+            background: var(--card-bg); backdrop-filter: blur(20px);
+            border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            border: 1px solid rgba(255,255,255,0.8);
+            display: grid; grid-template-columns: 1.2fr 1fr; gap: 50px; position: relative; z-index: 10;
         }
-        .about-title { font-size: 1.5rem; color: var(--bg-dark); margin: 0 0 15px 0; }
-        .skills-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-        .skills-list li { background: var(--bg-light); color: var(--bg-dark); padding: 8px 16px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: 1px solid #e2e8f0; transition: var(--transition); }
-        .skills-list li:hover { background: var(--primary); color: white; transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 5px 15px rgba(14,165,233,0.2); }
+        .about-title { font-size: 1.5rem; color: var(--text-main); margin: 0 0 20px 0; font-weight: 700; display: flex; align-items: center; gap: 12px; }
+        .about-title i { color: var(--primary); font-size: 1.2rem; }
+        .skills-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+        /* Skill Pills */
+        .skills-list li { 
+            background: white; color: var(--text-muted); padding: 10px 20px; border-radius: 30px; 
+            font-size: 0.9rem; font-weight: 600; border: 1px solid #e2e8f0; transition: var(--transition);
+            display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .skills-list li i { color: var(--primary); font-size: 1.1rem; }
+        .skills-list li:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-5px); box-shadow: 0 10px 20px var(--primary-glow); }
+        .skills-list li:hover i { color: white; }
 
-        /* Section Layout */
-        .container { max-width: 1200px; margin: 0 auto 60px; padding: 0 20px; }
-        .section-header { text-align: center; margin-bottom: 40px; }
-        .section-header h2 { font-size: 2rem; color: var(--bg-dark); margin: 0; }
-        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 30px; }
+        /* Pro Section Layout */
+        .container { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.2rem; color: var(--text-main); margin: 0 0 10px 0; font-weight: 800; letter-spacing: -0.5px; }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 35px; }
         
+        /* Pro Achievement Cards */
         .project-card { 
-            background: var(--card-bg); border-radius: 16px; padding: 30px; 
-            display: flex; flex-direction: column; border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); transition: var(--transition); position: relative; overflow: hidden;
+            background: white; border-radius: 20px; padding: 35px; 
+            display: flex; flex-direction: column; border: 1px solid #f1f5f9;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: var(--transition); position: relative; overflow: hidden;
+            z-index: 1;
         }
-        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
-        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: #cbd5e1; }
+        /* Top Accent Line */
+        .project-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--primary), var(--secondary)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s ease; }
+        .project-card:hover { transform: translateY(-12px); box-shadow: 0 25px 50px rgba(14, 165, 233, 0.1); border-color: #e2e8f0; }
         .project-card:hover::before { transform: scaleX(1); }
-        .project-card h3 { margin: 0 0 10px 0; font-size: 1.4rem; color: var(--bg-dark); display: flex; align-items: center; gap: 10px; line-height: 1.4; }
-        .tags { font-size: 0.8rem; color: var(--primary); background: #f0f9ff; padding: 6px 12px; border-radius: 20px; display: inline-block; margin-bottom: 15px; font-weight: 600; align-self: flex-start; }
-        .project-card p { flex-grow: 1; font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 25px; }
-
-        /* Footer */
-        footer { background: var(--bg-dark); color: white; text-align: center; padding: 60px 20px 30px; margin-top: 50px; }
-        .social-icons { margin: 25px 0; display: flex; justify-content: center; gap: 15px; }
-        .social-icons a { 
-            color: white; background: rgba(255,255,255,0.1); width: 45px; height: 45px; 
-            display: flex; justify-content: center; align-items: center; border-radius: 50%; 
-            font-size: 1.2rem; transition: var(--transition); 
+        
+        /* Styled Icon Wrapper */
+        .card-icon-wrapper {
+            width: 60px; height: 60px; border-radius: 16px; margin-bottom: 20px;
+            display: flex; justify-content: center; align-items: center; font-size: 1.8rem;
         }
-        .social-icons a:hover { background: var(--primary); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(14,165,233,0.4); }
+        .icon-gold { background: rgba(251, 191, 36, 0.15); color: #f59e0b; }
+        .icon-blue { background: rgba(14, 165, 233, 0.15); color: #0ea5e9; }
+        .icon-red { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+        .icon-green { background: rgba(16, 185, 129, 0.15); color: #10b981; }
 
+        .project-card h3 { margin: 0 0 12px 0; font-size: 1.3rem; color: var(--text-main); font-weight: 700; line-height: 1.5; }
+        .tags { font-size: 0.8rem; color: var(--secondary); background: rgba(99, 102, 241, 0.1); padding: 8px 15px; border-radius: 20px; display: inline-block; margin-bottom: 15px; font-weight: 600; align-self: flex-start; letter-spacing: 0.3px; }
+        .project-card p { flex-grow: 1; font-size: 0.95rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 0; }
+
+        /* Modern Footer */
+        footer { background: var(--bg-dark); color: white; text-align: center; padding: 80px 20px 40px; margin-top: 50px; position: relative; }
+        .footer-line { width: 60px; height: 4px; background: var(--primary); margin: 0 auto 30px; border-radius: 2px; }
+        .social-icons { margin: 30px 0; display: flex; justify-content: center; gap: 20px; }
+        .social-icons a { 
+            color: white; background: rgba(255,255,255,0.05); width: 50px; height: 50px; 
+            display: flex; justify-content: center; align-items: center; border-radius: 50%; 
+            font-size: 1.3rem; transition: var(--transition); border: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-icons a:hover { background: var(--primary); transform: translateY(-8px); box-shadow: 0 10px 25px var(--primary-glow); border-color: var(--primary); }
+
+        @media (max-width: 900px) {
+            .about-section { grid-template-columns: 1fr; margin: -40px 20px 50px; padding: 35px; }
+        }
         @media (max-width: 768px) {
-            .about-section { grid-template-columns: 1fr; margin: -30px 20px 40px; padding: 25px; }
             .nav-links { display: none; }
-            .typing-container { font-size: 1.5rem; }
-            .cursor { height: 1.5rem; }
-            .project-card h3 { font-size: 1.2rem; align-items: flex-start; }
+            .typing-container { font-size: 1.8rem; }
+            .cursor { height: 1.8rem; }
+            header { padding: 140px 20px 80px; }
         }
     </style>
 </head>
@@ -147,10 +192,10 @@
         </ul>
     </nav>
 
+    <!-- ផ្នែកខាងលើ៖ Pro Hero Section -->
     <header id="home">
-        <!-- បានជំនួសប្រអប់រូបថត (Image Placeholder) ដោយ Icon បន្ទះឈីប (Microchip) -->
         <div class="profile-container reveal">
-            <div class="profile-glow"></div>
+            <!-- HUD Microchip Icon -->
             <div class="profile-icon-wrapper">
                 <i class="fas fa-microchip"></i>
             </div>
@@ -165,22 +210,22 @@
 
     <section class="about-section reveal" id="about">
         <div>
-            <h2 class="about-title">គោលដៅ និងទស្សនៈវិស័យ</h2>
+            <h2 class="about-title"><i class="fas fa-bullseye"></i> គោលដៅ និងទស្សនៈវិស័យ</h2>
             <p style="color: var(--text-muted); line-height: 1.8;">ខ្ញុំជានិស្សិតឆ្នាំទី៤ នៃវិទ្យាស្ថានជាតិពហុបច្ចេកទេសកម្ពុជា (NPIC)។ ខ្ញុំមានចំណង់ចំណូលចិត្តខ្លាំងក្នុងការអភិវឌ្ឍន៍ប្រព័ន្ធស្វ័យប្រវត្តិកម្ម (Automation) រួមបញ្ចូលជាមួយបច្ចេកវិទ្យា IoT និងការរចនា Hardware ដើម្បីបង្កើតជាដំណោះស្រាយថ្មីៗក្នុងវិស័យឧស្សាហកម្ម និងបច្ចេកវិទ្យា។</p>
         </div>
         <div>
-            <h2 class="about-title" style="font-size: 1.1rem;">ជំនាញ និងបច្ចេកវិទ្យា៖</h2>
+            <h2 class="about-title"><i class="fas fa-code-branch"></i> ជំនាញ និងបច្ចេកវិទ្យា</h2>
             <ul class="skills-list">
                 <li><i class="fas fa-robot"></i> Siemens PLC (TIA Portal)</li>
                 <li><i class="fas fa-microchip"></i> STM32 & ESP32</li>
                 <li><i class="fas fa-network-wired"></i> MQTT & Node-RED</li>
                 <li><i class="fas fa-bolt"></i> KiCad (PCB Layout)</li>
-                <li><i class="fas fa-code"></i> C/C++ & MATLAB</li>
+                <li><i class="fas fa-laptop-code"></i> C/C++ & MATLAB</li>
             </ul>
         </div>
     </section>
 
-    <!-- ផ្នែកសមិទ្ធផល -->
+    <!-- ផ្នែកសមិទ្ធផល (Premium Edition) -->
     <div class="container" id="certificates">
         <div class="section-header reveal">
             <h2>សមិទ្ធផល និងការទទួលស្គាល់</h2>
@@ -188,26 +233,34 @@
         </div>
         
         <div class="projects-grid">
+            <!-- Card 1 -->
             <div class="project-card reveal" style="transition-delay: 0s;">
-                <h3><i class="fas fa-trophy" style="color: #fbbf24; font-size: 1.5rem;"></i> 2026 World Vocational College Skills</h3>
+                <div class="card-icon-wrapper icon-gold"><i class="fas fa-trophy"></i></div>
+                <h3>2026 World Vocational College Skills Competition</h3>
                 <div class="tags"><i class="fas fa-medal"></i> Bronze Award | International</div>
                 <p>ទទួលបានជ័យលាភីមេដាយសំរឹទ្ធ (Bronze Award) ក្នុងការប្រកួតប្រជែងជំនាញវិជ្ជាជីវៈកម្រិតអន្តរជាតិ វគ្គផ្តាច់ព្រ័ត្រឆ្នាំ២០២៦។</p>
             </div>
 
+            <!-- Card 2 -->
             <div class="project-card reveal" style="transition-delay: 0.1s;">
-                <h3><i class="fas fa-globe-asia" style="color: var(--primary); font-size: 1.5rem;"></i> HAM Fair 2024 - Tokyo, Japan</h3>
+                <div class="card-icon-wrapper icon-blue"><i class="fas fa-globe-asia"></i></div>
+                <h3>HAM Fair 2024 - Tokyo, Japan</h3>
                 <div class="tags"><i class="fas fa-award"></i> International Exchange Award</div>
                 <p>វិញ្ញាបនបត្របញ្ជាក់ពីការចូលរួមអភិវឌ្ឍន៍ឧបករណ៍ហ្វឹកហាត់ Morse Code ទទួលបានពានរង្វាន់អន្តរជាតិនៅទីក្រុងតូក្យូ ប្រទេសជប៉ុន។</p>
             </div>
 
+            <!-- Card 3 -->
             <div class="project-card reveal" style="transition-delay: 0.2s;">
-                <h3><i class="fas fa-broadcast-tower" style="color: #ef4444; font-size: 1.5rem;"></i> ARDF / Fox Hunting Participation</h3>
+                <div class="card-icon-wrapper icon-red"><i class="fas fa-broadcast-tower"></i></div>
+                <h3>ARDF / Fox Hunting Participation</h3>
                 <div class="tags"><i class="fas fa-map-marked-alt"></i> JICA | NPIC | Radio</div>
                 <p>វិញ្ញាបនបត្របញ្ជាក់ពីការចូលរួមយ៉ាងសកម្មក្នុងកម្មវិធីស្វែងរកទិសដៅវិទ្យុទាក់ទង (ARDF) នៅឧទ្យានជាតិគិរីរម្យ កាលពីថ្ងៃទី២២ ខែមីនា ឆ្នាំ២០២៤។</p>
             </div>
 
+            <!-- Card 4 -->
             <div class="project-card reveal" style="transition-delay: 0.3s;">
-                <h3><i class="fas fa-graduation-cap" style="color: #10b981; font-size: 1.5rem;"></i> Technical & Vocational Certificate</h3>
+                <div class="card-icon-wrapper icon-green"><i class="fas fa-graduation-cap"></i></div>
+                <h3>Technical & Vocational Certificate 2</h3>
                 <div class="tags"><i class="fas fa-university"></i> Telecommunication | NPIC</div>
                 <p>សញ្ញាបត្របច្ចេកទេស និងវិជ្ជាជីវៈទី២ (កម្រិត៣) ជំនាញទូរគមនាគមន៍ ចេញដោយក្រសួងការងារ និងបណ្តុះបណ្តាលវិជ្ជាជីវៈ ឆ្នាំ២០២២។</p>
             </div>
@@ -215,36 +268,46 @@
     </div>
     
     <footer id="contact">
+        <div class="footer-line reveal"></div>
         <h2 class="reveal">ភ្ជាប់ទំនាក់ទំនងជាមួយខ្ញុំ</h2>
-        <p class="reveal" style="color: #cbd5e1;">មានសំណួរ ឬចង់ពិភាក្សាពីគម្រោងវិស្វកម្ម? អាចទាក់ទងមកខ្ញុំបាន៖</p>
+        <p class="reveal" style="color: #cbd5e1; margin-top: 15px;">មានសំណួរ ឬចង់ពិភាក្សាពីគម្រោងវិស្វកម្ម? អាចទាក់ទងមកខ្ញុំបាន៖</p>
         <div class="social-icons reveal">
-            <a href="mailto:beavchhunly65@gmail.com"><i class="fas fa-envelope"></i></a>
-            <a href="https://github.com/Dim2308" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://t.me/AhDim_2" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+            <a href="mailto:beavchhunly65@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/Dim2308" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://t.me/AhDim_2" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
         </div>
-        <p style="color: #64748b; font-size: 0.9rem; margin-top: 30px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិគ្រប់យ៉ាងដោយ Beav Chhunly (Dim)</p>
+        <p style="color: #64748b; font-size: 0.9rem; margin-top: 40px; letter-spacing: 0.5px;">© 2026 NPIC Engineering Portfolio | រក្សាសិទ្ធិដោយ Beav Chhunly (Dim)</p>
     </footer>
 
     <script>
-        const texts = [ "សួស្តី! ខ្ញុំឈ្មោះ <span>បៀវ ឈុនលី (Dim)</span>", "ខ្ញុំជានិស្សិតវិស្វកម្មអេឡិចត្រូនិក 👨‍💻", "សូមស្វាគមន៍មកកាន់ Portfolio របស់ខ្ញុំ 🚀" ];
+        const texts = [ 
+            "សួស្តី! ខ្ញុំឈ្មោះ <span class='gradient-text'>បៀវ ឈុនលី (Dim)</span>", 
+            "ខ្ញុំជានិស្សិតវិស្វកម្មអេឡិចត្រូនិក 👨‍💻", 
+            "សូមស្វាគមន៍មកកាន់ Portfolio របស់ខ្ញុំ 🚀" 
+        ];
         let count = 0, index = 0, currentText = '', letter = '', isDeleting = false, typingSpeed = 100;
+        
         function type() {
             if (count === texts.length) { count = 0; }
             currentText = texts[count];
-            if (isDeleting) { letter = currentText.slice(0, --index); typingSpeed = 50; } 
-            else { letter = currentText.slice(0, ++index); typingSpeed = 100; }
+            if (isDeleting) { letter = currentText.slice(0, --index); typingSpeed = 40; } 
+            else { letter = currentText.slice(0, ++index); typingSpeed = 80; }
+            
             document.getElementById('typewriter').innerHTML = letter;
+            
             if (!isDeleting && letter.length === currentText.length) { typingSpeed = 2500; isDeleting = true; } 
             else if (isDeleting && letter.length === 0) { isDeleting = false; count++; typingSpeed = 500; }
             setTimeout(type, typingSpeed);
         }
+        
         function initScrollAnimations() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('active'); });
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         }
-        document.addEventListener('DOMContentLoaded', () => { setTimeout(type, 1000); initScrollAnimations(); });
+        
+        document.addEventListener('DOMContentLoaded', () => { setTimeout(type, 800); initScrollAnimations(); });
     </script>
 </body>
 </html>
